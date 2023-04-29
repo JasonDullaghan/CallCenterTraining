@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Package Selector</title>
-    <h1>Package Selector</h1>
+    <h1>PCG Interactive Script</h1>
   </head>
   <body>
     <div class="question">
@@ -49,33 +49,21 @@
     <div class="question">
       <p>How many TVs does your company have?</p>
       <div class="input-group">
-        <label for="numberOfTvs">Number of TVs:</label>
-        <input
-          type="number"
-          id="numberOfTvs"
-          name="numberOfTvs"
-          min="1"
-          step="1"
-          oninput="updateTvs()"
-        />
+        <label for="num-tvs">Number of TVs: </label>
+        <input type="number" id="num-tvs" min="1" value="1" />
       </div>
     </div>
-    <div id="result">
-      <p>Options for Customer:</p>
-      <div id="results">-</div>
-      <div id="checkboxes" style="display: none">
-        <input type="checkbox" id="option1" onclick="updatePrice()" />
-        <label for="option1" id="option1Label"></label><br />
-        <input type="checkbox" id="option2" onclick="updatePrice()" />
-        <label for="option2" id="option2Label"></label>
-      </div>
-      <p>Total Price: <span id="totalPrice">$0</span></p>
-    </div>
+
+    <div id="results">-</div>
+    <div id="package-container"></div>
+    <div id="recommended-script"></div>
 
     <script>
       let businessTypeBtn = null;
       let businessSizeBtn = null;
       let sportsPackageBtn = null;
+      let sportsPackage = null;
+      let spanishBusiness = null;
       let spanishBusinessBtn = null;
       let numberOfTvs = 1;
       let spanishPackage = null;
@@ -144,38 +132,85 @@
       function updateResult() {
         const selectedOptions = document.getElementById("selectedOptions");
         const results = document.getElementById("results");
-        let Price = 0;
-        const prices = {
-          spanishSportText: 124.99,
-          spanishNotSportText: 99.99,
-          combineSpanish: 9.99,
-          publicHighestPrice: 114.99,
-        };
-        results.innerText = "";
-        let spanishSportText =
-          "COMERCIAL MÁS ULTRA PACK $124.99 \n Access to Over 150 Channels including (ESPN, NFL NETWORK FS1, FS2, MLB NETWORK) First 24 Months ($144.99 afterwards)";
-        let spanishNotSportText =
-          "Comercial Optimo Mas Pack $99.99 First 24 months ($119.99 afterwards)";
-        let lowestPriceOption = "Commericial Basic Plus ($29.99)";
-        let publicHighestPrice =
-          "Commercial XTRA Pack ($114.99) for 12 months, next 12 months ($174.99), afterwards ($194.99) \n Offers over 185 channels + Regional Sports Networks + Music Choice Premium";
-        let combineSpanish =
-          " Combine with International Add on for an extra $9.99 \n Options: \n DirecTV Deports: ESPN Deports, TUDN. TyC Sports, GOLTV \n Mexioc Plus: MN, Universo, A3S, Telemundo, UMas, and more \n Americas Plus: PERU Magico, Discovery en Espanol, Telemundo, UMas, Hola TV, and more";
         if (businessType && sportsPackage && spanishBusiness && numberOfTvs) {
           // Check combinations of button presses
           if (businessType === "public") {
             if (sportsPackage === "yes") {
               if (spanishBusiness === "yes") {
                 if (spanishPackage === "allChannels") {
-                  // Handle the combination: Public Viewing, Yes, Yes, All Spanish-speaking channels
-                  results.innerText =
-                    "Best Value: " +
-                    toTitleCase(spanishSportText) +
-                    "\n \n Lower Price Option: " +
-                    spanishNotSportText;
                 } else if (spanishPackage === "addOnPackage") {
-                  results.innerText =
-                    "Best Value: " + publicHighestPrice + combineSpanish;
+                  // Handle the combination: Public Viewing, Yes, Yes, All Spanish-speaking channels
+
+                  //update the script based on the boxes checked
+
+                  results.innerHTML =
+                    "<i> Reccomended Script: <br> Hello! Based on your preferences, I'd recommend our best value package, the Business Entertainment Pack. It offers over 105 channels, including ESPN & ESPN 2, for just $89.99 per month. \nTo further enhance your viewing experience, I also recommend adding the DirecTV Deportes international package, which includes ESPN Deportes, TUDN, TyC Sports, and GOLTV for just $9.99 per month. \nBy combining the Business Entertainment Pack with the DirecTV Deportes add-on, you'll receive an extensive selection of channels tailored to your business needs.";
+                  const packageInfo = `
+                <h2>Recommended Packages</h2>
+<p>We recommend the following packages for your business:</p>
+<ol>
+  <li>
+    <input type="checkbox" name="package-options" id="entertainment-pack" data-price="89.99" checked>
+    <strong>Best Value: Business Entertainment Pack</strong> ($89.99)
+    <ul>
+      <li>Offers over 105 channels, including ESPN & ESPN 2</li>
+      <li>$99.99 after the 12-month period, and $119.99 afterwards</li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox" name="package-options" id="XTRA-pack" data-price="114.99">
+    <strong>Higher Price Option: Commercial XTRA Pack</strong> ($114.99)
+    <ul>
+      <li>Offers over 185 channels, Regional Sports Networks, and Music Choice Premium</li>
+      <li>$174.99 for the next 12 months, and $194.99 afterwards</li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox" name="package-options" id="business-pack" data-price="59.99">
+    <strong>Lower Price Option: Business Select Pack</strong> ($59.99)
+    <ul>
+      <li>Offers over 95 channels</li>
+      <li>$79.99 after the 24-month period</li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox" name="package-options" id="commercial-pack" data-price="29.99">
+    <strong>Lowest Price Option: Commercial Basic Plus</strong> ($29.99)
+    <ul>
+      <li>Offers over 45 channels</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>International Add-On Packages</h2>
+<p>Enhance your viewing experience with these international add-on packages for just $9.99 each:</p>
+<ol>
+  <li>
+    <input type="checkbox" name = "international-options" id="deportes-package" data-price="9.99" checked>
+    <strong>Recommended: DirecTV Deportes</strong>
+    <ul>
+      <li>ESPN Deportes, TUDN, TyC Sports, GOLTV</li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox" name = "international-options" id="mexico-package" data-price="9.99">
+    <strong>Mexico Plus</strong>
+    <ul>
+      <li>MN, Universo, A3S, Telemundo, UMas, and more</li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox" name = "international-options" id="americas-package" data-price="9.99">
+    <strong>Americas Plus</strong>
+    <ul>
+      <li>PERU Magico, Discovery en Espanol, Telemundo, UMas, Hola TV, and more</li>
+    </ul>
+  </li>
+</ol>
+<p>Total Price: $<span id="total-price">99.98</span></p>
+          `;
+                  document.getElementById("package-container").innerHTML =
+                    packageInfo;
 
                   // Handle the combination: Public Viewing, Yes, Yes, Spanish-speaking add-on package
                 }
@@ -199,17 +234,81 @@
             // Similar nested if-else statements for individual viewing
           }
         }
-      }
-      function updatePrice() {
-        Price = 0;
-        if (document.getElementById("option1").checked) {
-          Price += prices.spanishSportText;
+
+        document
+          .querySelectorAll("input[type='checkbox'][name='package-options']")
+          .forEach((checkbox) => {
+            checkbox.addEventListener("change", (event) => {
+              if (event.target.checked) {
+                document
+                  .querySelectorAll(
+                    "input[type='checkbox'][name='package-options']"
+                  )
+                  .forEach((otherCheckbox) => {
+                    if (otherCheckbox !== event.target) {
+                      otherCheckbox.checked = false;
+                    }
+                  });
+              }
+              updateTotalPrice();
+            });
+          });
+        // Add event listeners to all checkboxes
+        document
+          .querySelectorAll("input[type='checkbox']")
+          .forEach((checkbox) => {
+            checkbox.addEventListener("change", updateTotalPrice);
+          });
+
+        // Call the updateTotalPrice function initially to set the recommended script text
+        // Add event listener to the number of TVs input field
+        document
+          .getElementById("num-tvs")
+          .addEventListener("input", updateTotalPrice);
+
+        function updateTotalPrice() {
+          let basePackagePrice = parseFloat(
+            document.querySelector(
+              "input[type='checkbox'][name='package-options']:checked"
+            ).dataset.price
+          );
+          let internationalPrice = Array.from(
+            document.querySelectorAll(
+              "input[name='international-options']:checked"
+            )
+          ).reduce(
+            (total, option) => total + parseFloat(option.dataset.price),
+            0
+          );
+
+          // Calculate the additional cost for TVs
+          let numTvs = parseInt(document.getElementById("num-tvs").value);
+          let tvCost = numTvs > 1 ? (numTvs - 1) * 14.99 : 0;
+
+          let totalPrice = basePackagePrice + internationalPrice + tvCost;
+
+          document.getElementById("recommended-script").innerText = `
+    Based on your selections, we recommend the <strong>${selectedPackage}</strong> package for a total of <strong>$${totalPrice.toFixed(
+            2
+          )}</strong> per month.
+    ${
+      selectedInternational.length > 0
+        ? "Additionally, we suggest the following international add-ons: " +
+          selectedInternational.join(", ") +
+          "."
+        : ""
+    }
+  `;
         }
-        if (document.getElementById("option2").checked) {
-          Price += prices.spanishNotSportText;
+
+        function getSelectedPackageName() {
+          return document
+            .querySelector("input[name='package-options']:checked")
+            .nextSibling.textContent.trim();
         }
-        document.getElementById("totalPrice").innerText =
-          "$" + Price.toFixed(2);
+
+        // Call the updateTotalPrice function initially to set the recommended script text
+        // updateTotalPrice();
       }
     </script>
     <style>
