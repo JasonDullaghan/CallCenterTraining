@@ -235,6 +235,12 @@
           }
         }
 
+        function getSelectedInternational() {
+  return Array.from(
+    document.querySelectorAll("input[name='international-options']:checked")
+  ).map((option) => option.nextSibling.textContent.trim());
+}
+
         document
           .querySelectorAll("input[type='checkbox'][name='package-options']")
           .forEach((checkbox) => {
@@ -267,6 +273,9 @@
           .addEventListener("input", updateTotalPrice);
 
         function updateTotalPrice() {
+          let selectedPackageCheckbox = document.querySelector(
+    "input[type='checkbox'][name='package-options']:checked"
+  );
           let basePackagePrice = parseFloat(
             document.querySelector(
               "input[type='checkbox'][name='package-options']:checked"
@@ -286,11 +295,12 @@
           let tvCost = numTvs > 1 ? (numTvs - 1) * 14.99 : 0;
 
           let totalPrice = basePackagePrice + internationalPrice + tvCost;
-
-          document.getElementById("recommended-script").innerText = `
+          let selectedPackage = selectedPackageCheckbox.nextSibling.textContent.trim();
+          let selectedInternational = getSelectedInternational();
+          document.getElementById("recommended-script").innerHTML = `
     Based on your selections, we recommend the <strong>${selectedPackage}</strong> package for a total of <strong>$${totalPrice.toFixed(
-            2
-          )}</strong> per month.
+      2
+    )}</strong> per month.
     ${
       selectedInternational.length > 0
         ? "Additionally, we suggest the following international add-ons: " +
