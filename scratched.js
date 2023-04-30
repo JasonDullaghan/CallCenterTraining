@@ -149,3 +149,44 @@
           "Americas PLus: PERU Magico, Discovery en Espanol, Telemundo, UMas, Hola TV, and more"; 
       
       */
+
+                  /*   document
+          .querySelectorAll("input[type='checkbox'][name='package-options']")
+          .forEach((checkbox) => {
+            checkbox.addEventListener("change", (event) => {
+              if (event.target.checked) {
+                document
+                  .querySelectorAll(
+                    "input[type='checkbox'][name='package-options']"
+                  )
+                  .forEach((otherCheckbox) => {
+                    if (otherCheckbox !== event.target) {
+                      otherCheckbox.checked = false;
+                    }
+                  });
+              }
+              updateTotalPrice();
+            });
+          });
+        // Add event listeners to all checkboxes
+        document
+          .querySelectorAll("input[type='checkbox']")
+          .forEach((checkbox) => {
+            checkbox.addEventListener("change", updateTotalPrice);
+          });
+
+
+              function getSelectedPackageName() {
+          return document
+            .querySelector("input[name='package-options']:checked")
+            .nextSibling.textContent.trim();
+        }
+
+        function getSelectedInternational() {
+          return Array.from(
+            document.querySelectorAll(
+              "input[name='international-options']:checked"
+            )
+          ).map((option) => option.nextSibling.textContent.trim());
+        }
+*/
