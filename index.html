@@ -4,59 +4,102 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Package Selector</title>
-    <h1>PCG Interactive Script</h1>
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Bootstrap Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
   </head>
-  <body>
-    <div class="question">
-      <p>What type of business do you own?</p>
-      <button onclick="selectBusinessType('public', this)">
-        Public Viewing
+  <body class="p-3 m-0 border-0 bd-example"> 
+    <br>
+    <h1>PCG Interactive Script</h1>
+    <br />
+    <div class="row d-md-flex justify-content-md-center">
+      <div class="col-sm-3 mb-3 mb-sm-0">
+      <div class="card card-margins">
+        <div class="card-body">
+          <h5 class="card-title text-center" >Business Type</h5>
+          <p class = "text-center">What type of viewing is the business?</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+          <div class="btn-group btn-group-sm mb-3 " role="group" aria-label="Small button group">
+      <button onclick="selectBusinessType('public', this)" type="button" class="btn btn-outline-primary">
+        Public
       </button>
-      <button onclick="selectBusinessType('private', this)">
-        Private Viewing
+      <button onclick="selectBusinessType('private', this)" type="button" class="btn btn-outline-primary">
+        Private
       </button>
-      <button onclick="selectBusinessType('individual', this)">
-        Individual Viewing
-      </button>
-    </div>
-
-    <div class="question">
-      <p>Does your business want a sports package?</p>
-      <button onclick="selectSportsPackage('yes', this)">Yes</button>
-      <button onclick="selectSportsPackage('no', this)">No</button>
-    </div>
-
-    <div class="question">
-      <p>Is this a Spanish speaking business?</p>
-
-      <button onclick="selectLanguage('yes', this)">Yes</button>
-      <button onclick="selectLanguage('no', this)">No</button>
-    </div>
-
-    <div class="question" id="spanishPackageQuestion" style="display: none">
-      <p>
-        Do you want an all Spanish-speaking channel list or a Spanish-speaking
-        add-on package?
-      </p>
-      <button onclick="selectSpanishPackage('allChannels', this)">
-        All Spanish-speaking channels
-      </button>
-      <button onclick="selectSpanishPackage('addOnPackage', this)">
-        Spanish-speaking add-on package
+      <button onclick="selectBusinessType('individual', this)" type="button" class="btn btn-outline-primary">
+        Individual
       </button>
     </div>
+  </div>
+</div>
+</div>
+</div>
 
-    <div class="question">
-      <p>How many TVs does your company have?</p>
-      <div class="input-group">
-        <label for="num-tvs">Number of TVs: </label>
-        <input type="number" id="num-tvs" min="1" value="1" />
-      </div>
+
+<div class="col-sm-3 mb-3 mb-sm-0">
+  <div class="card card-margins">
+    <div class="card-body">
+      <h5 class="card-title text-center" >SportsPackage</h5>
+      <p class = "text-center">Does your business want ESPN?</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+      <div class="btn-group btn-group-sm mb-3 " role="group" aria-label="Small button group">
+      <button onclick="selectSportsPackage('yes', this)"type="button" class="btn btn-outline-primary">Yes</button>
+      <button onclick="selectSportsPackage('no', this)"type="button" class="btn btn-outline-primary">No</button>
     </div>
+  </div>
+</div>
+</div>
+</div>
 
-    <div id="results">-</div>
+<div class="col-sm-3 mb-3 mb-sm-0">
+  <div class="card card-margins">
+    <div class="card-body">
+      <h5 class="card-title text-center" >Spanish Packages</h5>
+      <p class = "text-center">Does your business want spanish channels?</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+      <div class="btn-group btn-group-sm mb-3 " role="group" aria-label="Small button group">
+
+      <button onclick="selectLanguage('allChannels', this)"type="button" class="btn btn-outline-primary">All Spanish</button>
+      <button onclick="selectLanguage('addOnPackage', this)"type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >Spanish & English</button>
+      <button onclick="selectLanguage('none', this)"type="button" class="btn btn-outline-primary" >None</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<br>
+  <div class="w-50" style="margin: auto;">
+    <p class="text-center">How many TVs does your company have?</p>
+ <div class="input-group">
+   <label for="num-tvs"></label>
+   <input type="number" class="form-control" id="num-tvs" min="1" value="1" />
+</div>
+</div>
+<br>
+<div class="d-flex flex-row">
+  <section class="w-50">
+  <br>
+  <br>
+    <div class="px-3">
     <div id="package-container"></div>
-    <div id="recommended-script"></div>
+  </div>
+</section>
+
+<section class="w-50">
+<br>
+<br>
+<div style="margin: auto;">
+<div class ="text-center" id="results"></div>
+</div>
+<br>
+<br>
+<br>
+    <div class="text-center" style="margin: auto;" id="recommended-script"></div>
+  </div>
+  </section>
 
     <script>
       let businessTypeBtn = null;
@@ -94,35 +137,16 @@
         updateResult();
       }
 
-      function selectLanguage(option, button) {
+      function selectLanguage(type, button) {
         if (spanishBusinessBtn) {
           spanishBusinessBtn.classList.remove("active");
         }
         spanishBusinessBtn = button;
         spanishBusinessBtn.classList.add("active");
-        spanishBusiness = option;
-        updateResult();
-
-        // Show or hide the Spanish package question
-        if (spanishBusiness === "yes") {
-          document.getElementById("spanishPackageQuestion").style.display =
-            "block";
-        } else {
-          document.getElementById("spanishPackageQuestion").style.display =
-            "none";
-        }
-      }
-
-      function selectSpanishPackage(option, button) {
-        if (spanishPackageBtn) {
-          spanishPackageBtn.classList.remove("active");
-        }
-        spanishPackageBtn = button;
-        spanishPackageBtn.classList.add("active");
-        spanishPackage = option;
+        spanishBusiness = type;
         updateResult();
       }
-
+       
       function toTitleCase(str) {
         return str.replace(/\w\S*/g, function (txt) {
           return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -136,83 +160,211 @@
           // Check combinations of button presses
           if (businessType === "public") {
             if (sportsPackage === "yes") {
-              if (spanishBusiness === "yes") {
-                if (spanishPackage === "allChannels") {
-                } else if (spanishPackage === "addOnPackage") {
+              if (spanishBusiness === "addOnPackage") {
+                 
                   // Handle the combination: Public Viewing, Yes, Yes, All Spanish-speaking channels
 
                   //update the script based on the boxes checked
 
                   results.innerHTML =
                     "<i> Reccomended Script: <br> Hello! Based on your preferences, I'd recommend our best value package, the Business Entertainment Pack. It offers over 105 channels, including ESPN & ESPN 2, for just $89.99 per month. \nTo further enhance your viewing experience, I also recommend adding the DirecTV Deportes international package, which includes ESPN Deportes, TUDN, TyC Sports, and GOLTV for just $9.99 per month. \nBy combining the Business Entertainment Pack with the DirecTV Deportes add-on, you'll receive an extensive selection of channels tailored to your business needs.";
-                  const packageInfo = `
-                <h2>Recommended Packages</h2>
-<p>We recommend the following packages for your business:</p>
-<ol>
-  <li>
-    <input type="checkbox" name="package-options" id="entertainment-pack" data-price="89.99" checked>
-    <strong>Best Value: Business Entertainment Pack</strong> ($89.99)
-    <ul>
-      <li>Offers over 105 channels, including ESPN & ESPN 2</li>
-      <li>$99.99 after the 12-month period, and $119.99 afterwards</li>
-    </ul>
-  </li>
-  <li>
-    <input type="checkbox" name="package-options" id="XTRA-pack" data-price="114.99">
-    <strong>Higher Price Option: Commercial XTRA Pack</strong> ($114.99)
-    <ul>
-      <li>Offers over 185 channels, Regional Sports Networks, and Music Choice Premium</li>
-      <li>$174.99 for the next 12 months, and $194.99 afterwards</li>
-    </ul>
-  </li>
-  <li>
-    <input type="checkbox" name="package-options" id="business-pack" data-price="59.99">
-    <strong>Lower Price Option: Business Select Pack</strong> ($59.99)
-    <ul>
-      <li>Offers over 95 channels</li>
-      <li>$79.99 after the 24-month period</li>
-    </ul>
-  </li>
-  <li>
-    <input type="checkbox" name="package-options" id="commercial-pack" data-price="29.99">
-    <strong>Lowest Price Option: Commercial Basic Plus</strong> ($29.99)
-    <ul>
-      <li>Offers over 45 channels</li>
-    </ul>
-  </li>
+
+                  const packageInfo =`
+                  <div class="card">
+  <div class="card-body" >
+    <h2 class="card-title">Recommended Packages</h2>
+    <p class="card-text">We recommend the following packages for your business:</p>
+    <ol>
+      <li class="mb-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="package-options" id="entertainment-pack" data-price="89.99" data-package="Business Entertainment Pack" checked>
+          <label class="form-check-label" for="entertainment-pack">
+            <strong>Reccomended: Business Entertainment Pack</strong> ($89.99)
+          </label>
+        </div>
+        <ul>
+          <li>Offers over 105 channels, including ESPN & ESPN 2</li>
+          <li>$99.99 after the 12-month period, and $119.99 afterwards</li>
+        </ul>
+      </li>
+      <li class="mb-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="package-options" id="XTRA-pack" data-price="114.99" data-package="Commercial XTRA Pack">
+          <label class="form-check-label" for="XTRA-pack">
+            <strong>Higher Price Option: Commercial XTRA Pack</strong> ($114.99)
+          </label>
+        </div>
+        <ul>
+          <li>Offers over 185 channels, Regional Sports Networks, and Music Choice Premium</li>
+          <li>$174.99 for the next 12 months, and $194.99 afterwards</li>
+        </ul>
+      </li>
+      <li class="mb-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="package-options" id="business-pack" data-price="59.99" data-package="Business Select Pack">
+          <label class="form-check-label" for="business-pack">
+            <strong>Lower Price Option: Business Select Pack</strong> ($59.99)
+          </label>
+        </div>
+        <ul>
+          <li>Offers over 95 channels</li>
+          <li>$79.99 after the 24-month period</li>
+        </ul>
+      </li>
+      <li class="mb-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="package-options" id="commercial-pack" data-price="29.99" data-package="Commercial Basic Plus">
+          <label class="form-check-label" for="commercial-pack">
+            <strong>Lowest Price Option: Commercial Basic Plus</strong> ($29.99)
+          </label>
+        </div>
+        <ul>
+          <li>Offers over 45 channels</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2 class="card-title">International Add-On Packages</h2>
+    <p class="card-text">Enhance your viewing experience with these international add-on packages for just $9.99 each:</p>
+    <ol>
+      <li class="mb-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="international-options" id="deportes-package" data-price="9.99" data-addon="DirecTV Deportes" checked>
+          <label class="form-check-label" for="deportes-package">
+            <strong>Recommended: DirecTV Deportes</strong>
+</label>
+</div>
+<ul>
+<li>ESPN Deportes, TUDN, TyC Sports, GOLTV</li>
+</ul>
+</li>
+<li class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" name="international-options" id="mexico-package" data-price="9.99" data-addon="Mexico Plus">
+<label class="form-check-label" for="mexico-package">
+<strong>Mexico Plus</strong>
+</label>
+</div>
+<ul>
+<li>MN, Universo, A3S, Telemundo, UMas, and more</li>
+</ul>
+</li>
+<li class="mb-2">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" name="international-options" id="americas-package" data-price="9.99" data-addon="Americas Plus">
+<label class="form-check-label" for="americas-package">
+<strong>Americas Plus</strong>
+</label>
+</div>
+<ul>
+<li>PERU Magico, Discovery en Espanol, Telemundo, UMas, Hola TV, and more</li>
+</ul>
+</li>
 </ol>
 
-<h2>International Add-On Packages</h2>
-<p>Enhance your viewing experience with these international add-on packages for just $9.99 each:</p>
-<ol>
-  <li>
-    <input type="checkbox" name = "international-options" id="deportes-package" data-price="9.99" checked>
-    <strong>Recommended: DirecTV Deportes</strong>
-    <ul>
-      <li>ESPN Deportes, TUDN, TyC Sports, GOLTV</li>
-    </ul>
-  </li>
-  <li>
-    <input type="checkbox" name = "international-options" id="mexico-package" data-price="9.99">
-    <strong>Mexico Plus</strong>
-    <ul>
-      <li>MN, Universo, A3S, Telemundo, UMas, and more</li>
-    </ul>
-  </li>
-  <li>
-    <input type="checkbox" name = "international-options" id="americas-package" data-price="9.99">
-    <strong>Americas Plus</strong>
-    <ul>
-      <li>PERU Magico, Discovery en Espanol, Telemundo, UMas, Hola TV, and more</li>
-    </ul>
-  </li>
-</ol>
-<p>Total Price: $<span id="total-price">99.98</span></p>
-          `;
+  </div>
+</div>`;  
+        
+                  /* `
+                      <h2>Recommended Packages</h2>
+      <p>We recommend the following packages for your business:</p>
+      <ol>
+        <li>
+          <input type="checkbox" name="package-options" id="entertainment-pack" data-price="89.99" data-package = "Business Entertainment Pack" checked>
+          <strong>Reccomended: Business Entertainment Pack</strong> ($89.99)
+          <ul>
+            <li>Offers over 105 channels, including ESPN & ESPN 2</li>
+            <li>$99.99 after the 12-month period, and $119.99 afterwards</li>
+          </ul>
+        </li>
+        <li>
+          <input type="checkbox" name="package-options" id="XTRA-pack" data-price="114.99" data-package = "Commercial XTRA Pack">
+          <strong>Higher Price Option: Commercial XTRA Pack</strong> ($114.99)
+          <ul>
+            <li>Offers over 185 channels, Regional Sports Networks, and Music Choice Premium</li>
+            <li>$174.99 for the next 12 months, and $194.99 afterwards</li>
+          </ul>
+        </li>
+        <li>
+          <input type="checkbox" name="package-options" id="business-pack" data-price="59.99" data-package = "Business Select Pack">
+          <strong>Lower Price Option: Business Select Pack</strong> ($59.99)
+          <ul>
+            <li>Offers over 95 channels</li>
+            <li>$79.99 after the 24-month period</li>
+          </ul>
+        </li>
+        <li>
+          <input type="checkbox" name="package-options" id="commercial-pack" data-price="29.99" data-package = "Commercial Basic Plus">
+          <strong>Lowest Price Option: Commercial Basic Plus</strong> ($29.99)
+          <ul>
+            <li>Offers over 45 channels</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2>International Add-On Packages</h2>
+      <p>Enhance your viewing experience with these international add-on packages for just $9.99 each:</p>
+      <ol>
+        <li>
+          <input type="checkbox" name = "international-options" id="deportes-package" data-price="9.99" data-addon = "DirecTV Deportes" checked>
+          <strong>Recommended: DirecTV Deportes</strong>
+          <ul>
+            <li>ESPN Deportes, TUDN, TyC Sports, GOLTV</li>
+          </ul>
+        </li>
+        <li>
+          <input type="checkbox" name = "international-options" id="mexico-package" data-price="9.99" data-addon = "Mexico Plus">
+          <strong>Mexico Plus</strong>
+          <ul>
+            <li>MN, Universo, A3S, Telemundo, UMas, and more</li>
+          </ul>
+        </li>
+        <li>
+          <input type="checkbox" name = "international-options" id="americas-package" data-price="9.99" data-addon = "Americas Plus">
+          <strong>Americas Plus</strong>
+          <ul>
+            <li>PERU Magico, Discovery en Espanol, Telemundo, UMas, Hola TV, and more</li>
+          </ul>
+        </li>
+      </ol>
+                `;*/
                   document.getElementById("package-container").innerHTML =
                     packageInfo;
 
                   // Handle the combination: Public Viewing, Yes, Yes, Spanish-speaking add-on package
+                  // Add event listeners to all checkboxes
+                  document
+                    .querySelectorAll("input[type='checkbox']")
+                    .forEach((checkbox) => {
+                      checkbox.addEventListener("change", updateTotalPrice);
+                    });
+                  document
+                    .getElementById("num-tvs")
+                    .addEventListener("input", updateTotalPrice);
+
+                  document
+                    .querySelectorAll(
+                      "input[type='checkbox'][name='package-options']"
+                    )
+                    .forEach((checkbox) => {
+                      checkbox.addEventListener("change", (event) => {
+                        if (event.target.checked) {
+                          document
+                            .querySelectorAll(
+                              "input[type='checkbox'][name='package-options']"
+                            )
+                            .forEach((otherCheckbox) => {
+                              if (otherCheckbox !== event.target) {
+                                otherCheckbox.checked = false;
+                              }
+                            });
+                        }
+                        // Call the updateTotalPrice function initially to set the recommended script text
+                        updateTotalPrice();
+                      });
+
+                    });
+                    updateTotalPrice();
                 }
               } else if (spanishBusiness === "no") {
                 // Handle the combination: Public Viewing, Yes, No
@@ -235,47 +387,19 @@
           }
         }
 
-        function getSelectedInternational() {
-  return Array.from(
-    document.querySelectorAll("input[name='international-options']:checked")
-  ).map((option) => option.nextSibling.textContent.trim());
-}
-
-        document
-          .querySelectorAll("input[type='checkbox'][name='package-options']")
-          .forEach((checkbox) => {
-            checkbox.addEventListener("change", (event) => {
-              if (event.target.checked) {
-                document
-                  .querySelectorAll(
-                    "input[type='checkbox'][name='package-options']"
-                  )
-                  .forEach((otherCheckbox) => {
-                    if (otherCheckbox !== event.target) {
-                      otherCheckbox.checked = false;
-                    }
-                  });
-              }
-              updateTotalPrice();
-            });
-          });
-        // Add event listeners to all checkboxes
-        document
-          .querySelectorAll("input[type='checkbox']")
-          .forEach((checkbox) => {
-            checkbox.addEventListener("change", updateTotalPrice);
-          });
-
         // Call the updateTotalPrice function initially to set the recommended script text
         // Add event listener to the number of TVs input field
-        document
-          .getElementById("num-tvs")
-          .addEventListener("input", updateTotalPrice);
 
         function updateTotalPrice() {
+          console.log("updateTotalPrice called")
+          let selectedInternational = [];
           let selectedPackageCheckbox = document.querySelector(
-    "input[type='checkbox'][name='package-options']:checked"
-  );
+            "input[type='checkbox'][name='package-options']:checked"
+          );
+
+          let selectedInternationalCheckbox = document.querySelector(
+            "input[name='international-options']:checked"
+          );
           let basePackagePrice = parseFloat(
             document.querySelector(
               "input[type='checkbox'][name='package-options']:checked"
@@ -293,80 +417,62 @@
           // Calculate the additional cost for TVs
           let numTvs = parseInt(document.getElementById("num-tvs").value);
           let tvCost = numTvs > 1 ? (numTvs - 1) * 14.99 : 0;
+          let TVs = numTvs > 1 ? "TV's" : "TV"
 
           let totalPrice = basePackagePrice + internationalPrice + tvCost;
-          let selectedPackage = selectedPackageCheckbox.nextSibling.textContent.trim();
-          let selectedInternational = getSelectedInternational();
-          document.getElementById("recommended-script").innerHTML = `
-    Based on your selections, we recommend the <strong>${selectedPackage}</strong> package for a total of <strong>$${totalPrice.toFixed(
-      2
-    )}</strong> per month.
-    ${
-      selectedInternational.length > 0
-        ? "Additionally, we suggest the following international add-ons: " +
-          selectedInternational.join(", ") +
-          "."
-        : ""
-    }
-  `;
-        }
+          let selectedPackage = selectedPackageCheckbox.dataset.package;
+          selectedInternational.push(
+            //selectedInternationalCheckbox.dataset.addon
+            Array.from(
+              document.querySelectorAll(
+                "input[name='international-options']:checked"
+              )
+            ).map((option) => option.dataset.addon)
+          );
+          console.log(selectedInternational);
+          let addOns = selectedInternational[0].length > 1 ? "add-ons" : "add-on";
+          
+          //make the international add-on of <strong>${selectedInternational.join(",  ")}</strong> package only display when the array is > 1
 
-        function getSelectedPackageName() {
-          return document
-            .querySelector("input[name='package-options']:checked")
-            .nextSibling.textContent.trim();
+          //document.getElementById("recommended-script").innerHTML = `Based on your selections, we recommend the <strong>${selectedPackage}</strong> with the international add-on of <strong>${selectedInternational.join(",  ")}</strong> package and <strong>${numTvs}</strong> ${TVs} for a total of <strong>$${totalPrice.toFixed(2)}</strong> per month.`;
+          document.getElementById("recommended-script").innerHTML = `New selections script: <br> <i> We recommend the <strong>${selectedPackage}</strong> package ${selectedInternational[0].length >= 1 ? ` with the international ${addOns} of <strong> ${ selectedInternational.join(", ")}</strong> ` : ""} and <strong>${numTvs}</strong> ${TVs} for a total of <strong>$${totalPrice.toFixed(2)}</strong> per month.`;
+          // Create the button element
+const copyButton = document.createElement("button");
+
+// Set the button text
+copyButton.textContent = "Copy text";
+
+// Assign the copyToClipboard function to the button's onclick event
+copyButton.onclick = copyToClipboard;
+
+// Append the button to a specific element, in this example, we use an element with the ID 'button-container'
+document.getElementById("recommended-script").appendChild(copyButton);
+            function copyToClipboard() {
+    const textToCopy = document.getElementById("recommended-script").innerText;
+    const textArea = document.createElement("textarea");
+    textArea.value = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("Copy");
+    textArea.remove();
+
+    alert("Text copied to clipboard!");
+}
         }
 
         // Call the updateTotalPrice function initially to set the recommended script text
-        // updateTotalPrice();
-      }
+      updateTotalPrice();
     </script>
     <style>
       body {
         font-family: Arial, sans-serif;
       }
-      .question {
-        margin-bottom: 20px;
-      }
-      button {
-        margin-right: 10px;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        background-color: #007bff;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        outline: none;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.2s;
-      }
-      button:hover {
-        background-color: #0056b3;
-      }
-      button.active {
-        background-color: #003367;
-        box-shadow: none;
-      }
-      #result {
-        margin-top: 20px;
-      }
-      .input-group {
-        display: flex;
-        align-items: center;
-      }
 
-      label {
-        margin-right: 10px;
-      }
-
-      input[type="number"] {
-        width: 100px;
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-      }
+      h1 {
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+}
     </style>
   </body>
 </html>
