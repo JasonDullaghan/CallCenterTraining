@@ -80,17 +80,28 @@
 </div>
 <br>
 <style>
-  @media (max-width: 768px) {
-    .flex-row {
-      display: block !important;
-    }
-    .w-50 {
+    @media (max-width: 576px) {
+  .flex-row {
+    display: block !important;
+  }
+  .w-50 {
     width: 100% !important;
   }
+  .order-1 {
+    order: 2;
   }
+  .order-2 {
+    order: 1;
+  }
+}
+@media (max-width: 768px) {
+  .flex-row {
+    display: block !important;
+  }
+}
   </style>
 <div class="d-flex flex-row">
-  <section class="w-50">
+  <section class="w-50 order-2">
   <br>
   <br>
     <div class="px-3">
@@ -98,7 +109,7 @@
   </div>
 </section>
 
-<section class="w-50">
+<section class="w-50 order-1">
 <br>
 <br>
 <div style="margin: auto;">
