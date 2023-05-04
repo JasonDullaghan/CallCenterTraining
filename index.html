@@ -10,6 +10,7 @@
     <title>Bootstrap Example</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   </head>
   <body class="m-0 border-0 bd-example"> 
     <br>
@@ -92,11 +93,23 @@
   
 
 
-
+    <p class="text-center"><i>“ I was calling to talk to you about our DIRECTV service for your business. Do you currently use TV at your location?”
+    </i></p>
     <div class="row d-md-flex justify-content-md-center">
       <div class="col-sm-3 mb-3 mb-sm-0">
       <div class="card card-margins">
-        <div class="card-body">
+        <div class="card-body position-relative">
+          <div class="d-flex justify-content-end">
+            <div class="card-info-icon">
+            <button type="button" class="btn btn-sm btn-link text-muted" data-bs-toggle="modal" data-bs-target="#businessTypeModal">
+            
+              <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M12 0c6.623 0 12 5.377 12 12s-5.377 12-12 12-12-5.377-12-12 5.377-12 12-12zm0 1c6.071 0 11 4.929 11 11s-4.929 11-11 11-11-4.929-11-11 4.929-11 11-11zm.5 17h-1v-9h1v9zm-.5-12c.466 0 .845.378.845.845 0 .466-.379.844-.845.844-.466 0-.845-.378-.845-.844 0-.467.379-.845.845-.845z"/></svg>
+        
+                            
+              
+            </div>
+            </button>
+          </div>
           <h5 class="card-title text-center" >Business Type</h5>
           <p class = "text-center">What type of viewing is the business?</p>
           <div class="d-grid gap-2 d-md-flex justify-content-md-center">
@@ -114,10 +127,12 @@
   </div>
 </div>
 </div>
+<p style="font-style: italic; font-size: small;">* Obtain customer info prior to call; avoid asking question.</p>
 </div>
 
 
 <div class="col-sm-3 mb-3 mb-sm-0">
+  
   <div class="card card-margins">
     <div class="card-body">
       <h5 class="card-title text-center" >SportsPackage</h5>
@@ -130,6 +145,7 @@
   </div>
 </div>
 </div>
+
 </div>
 
 <div class="col-sm-3 mb-3 mb-sm-0">
@@ -147,7 +163,9 @@
   </div>
 </div>
 </div>
+<p style="font-style: italic; font-size: small;">*Can either infer or ask question</p>
 </div>
+
 </div>
 
 <br>
@@ -159,7 +177,64 @@
 </div>
 </div>
 <br>
+
+
+
+<!-- Bootstrap modal -->
+<div class="modal fade" id="businessTypeModal" tabindex="-1" aria-labelledby="businessTypeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="businessTypeModalLabel">Business Type Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="accordion" id="viewingTypesAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="publicViewingHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#publicViewing" aria-expanded="false" aria-controls="publicViewing">
+                        What is Public Viewing?
+                    </button>
+                </h2>
+                <div id="publicViewing" class="accordion-collapse collapse" aria-labelledby="publicViewingHeading" data-bs-parent="#viewingTypesAccordion">
+                    <div class="accordion-body">
+                        <p>Television viewing accessible to the general public. Main source of revenue from the sale of food and beverages for immediate consumption. No admission fee.</p>
+                        <p><strong>Examples:</strong> Bars, Lounges, Restaurants, Casinos, Coffee Shops</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="businessViewingHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#businessViewing" aria-expanded="false" aria-controls="businessViewing">
+                        What is Business Viewing?
+                    </button>
+                </h2>
+                <div id="businessViewing" class="accordion-collapse collapse" aria-labelledby="businessViewingHeading" data-bs-parent="#viewingTypesAccordion">
+                    <div class="accordion-body">
+                        <p>Television viewing accessible to the general public. Main source of revenue from the sale of goods, services, and experiences.</p>
+                        <p><strong>Examples:</strong> Auto Shops, Health Clubs, Banks, Salons, Waiting Areas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="privateViewingHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#privateViewing" aria-expanded="false" aria-controls="privateViewing">
+                        What is Private Viewing?
+                    </button>
+                </h2>
+                <div id="privateViewing" class="accordion-collapse collapse" aria-labelledby="privateViewingHeading" data-bs-parent="#viewingTypesAccordion">
+                    <div class="accordion-body">
+                        <p>Television viewing accessible only to employees.</p>
+                        <p><strong>Examples:</strong> Private Offices, Conference Rooms, Employee Break Rooms</p>
+                    </div>
+                </div>
+            </div>
+    </div>
+  </div>
 </div>
+</div>
+</div>
+
 <style>
     @media (max-width: 576px) {
   .flex-row {
@@ -194,7 +269,7 @@
     <div class="text-left" style="margin: auto;" id="recommended-script"></div>
   </div>
   </section>
-
+</div>
     <script>
       let businessTypeBtn = null;
       let businessSizeBtn = null;
@@ -973,7 +1048,7 @@
 
 
           results.innerHTML =
-                  `<i> Reccomended Script: <br> Hello! Based on your preferences, I'd recommend our ${packageInfo}\n ${addOnInfo}`;
+                  `<i> <br> Reccomended Script: Right now we are offering FREE equipment, FREE standard installation, waiving all activation fees up front, PLUS giving you a FREE TV and Based on your preferences, I'd recommend our ${packageInfo}\n ${addOnInfo}`;
           document.getElementById("recommended-script").innerHTML = `Information For Closers: <br>Selected Package: <strong>${selectedPackage}</strong> ${selectedInternational[0].length >= 1 ? ` <br>Add on Packages: <strong> ${ selectedInternational.join(", ")}</strong> ` : ""} <br> Number of TVs: <strong>${numTvs} ${TVs} </strong> <br> Price Per Month: <strong>$${totalPrice.toFixed(2)}</strong> <br>`;
           // Create the button element
 const copyButton = document.createElement("button");
@@ -1066,6 +1141,15 @@ document.getElementById("recommended-script").appendChild(copyButton);
 
 .form-check-label {
   margin-right: 25px;
+}
+
+  .card-info-icon {
+    position: absolute;
+top: 0;
+right: 0;
+margin: 8px;
+  color: #6c757d; /* Change to the desired color */
+
 }
     </style>
   </body>
