@@ -9,11 +9,90 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <title>Bootstrap Example</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
-  <body class="p-3 m-0 border-0 bd-example"> 
+  <body class="m-0 border-0 bd-example"> 
     <br>
     <h1>PCG Interactive Script</h1>
     <br />
+
+
+    <div class="container">
+    
+      <p class="text-center"><i>“May I speak with the owner or manager in charge?”
+      </i></p>
+      <div class="container d-flex justify-content-center align-items-center">
+      <button id="customer-available-btn" class="btn btn-primary btn me-4">If Customer is available</button>
+      <button type="button" class="btn btn-outline-secondary btn" data-bs-toggle="modal" data-bs-target="#notAvailableModal">
+        If customer is not available
+      </button>
+    </div>
+      <div class="modal fade" id="notAvailableModal" tabindex="-1" aria-labelledby="notAvailableModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="notAvailableModalLabel">
+                Fill out this form. Set a callback for the specified time and send an email with with best price available if email was provided </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="not-available-questions">
+               
+                <div class="form-group">
+                  <label for="time-input">Is there a better time to reach the owner or manager in charge?</label>
+                  <input type="text" class="form-control" id="time-input">
+                </div>
+                <div class="form-group">
+                  <label for="email-input">What is the best email to get in contact with the owner or manager?</label>
+                  <input type="email" class="form-control" id="email-input">
+                </div>
+                <div class="form-group">
+                  <label for="name-input">What is this person's name?</label>
+                  <input type="text" class="form-control" id="name-input">
+                </div>
+                <div class="form-group">
+                  <label>Do you use TVs at the business?</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tv-radio" id="tv-yes" value="yes">
+                    <label class="form-check-label" for="tv-yes">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tv-radio" id="tv-no" value="no">
+                    <label class="form-check-label" for="tv-no">
+                      No
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cable-input">Do you know which cable company you guys are using right now?</label>
+                  <input type="text" class="form-control" id="cable-input">
+                </div>
+                <button id="not-available-submit-btn" class="btn btn-primary">Copy Text</button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+
+
+
+
+
+  <div id="customer-available-div" style="display: none;">
+  
+
+
+
     <div class="row d-md-flex justify-content-md-center">
       <div class="col-sm-3 mb-3 mb-sm-0">
       <div class="card card-margins">
@@ -70,6 +149,7 @@
 </div>
 </div>
 </div>
+
 <br>
   <div class="w-50" style="margin: auto;">
     <p class="text-center">How many TVs does your company have?</p>
@@ -79,29 +159,22 @@
 </div>
 </div>
 <br>
+</div>
 <style>
     @media (max-width: 576px) {
   .flex-row {
     display: block !important;
+    flex-wrap: wrap;
   }
   .w-50 {
     width: 100% !important;
   }
-  .order-1 {
-    order: 2;
-  }
-  .order-2 {
-    order: 1;
-  }
+
 }
-@media (max-width: 768px) {
-  .flex-row {
-    display: block !important;
-  }
-}
+
   </style>
 <div class="d-flex flex-row">
-  <section class="w-50 order-2">
+  <section class="w-50">
   <br>
   <br>
     <div class="px-3">
@@ -109,7 +182,7 @@
   </div>
 </section>
 
-<section class="w-50 order-1">
+<section class="w-50">
 <br>
 <br>
 <div style="margin: auto;">
@@ -793,7 +866,7 @@
 
         // Call the updateTotalPrice function initially to set the recommended script text
         // Add event listener to the number of TVs input field
-
+        //this is where all the reccomended script and info to closer logic is
         function updateTotalPrice() {
        
           let selectedInternational = [];
@@ -840,36 +913,60 @@
     
         let packageInfo = '';
         let addOnINfo = '';
+        let addOnPackageInfo = ''
+        let addOnPrice = 0;
+        let plus = ''
+        let andMore = ''
         if (selectedPackage === "Business Entertainment Pack") {
-          packageInfo = ' best sports value package, the Business Entertainment Pack. It offers over 105 channels, including ESPN & ESPN 2, for just $89.99 per month. '
+          packageInfo = ' best sports value package, the Business Entertainment Pack. It offers over 105 channels, including ESPN & ESPN 2,'
         } else if (selectedPackage === "Commercial XTRA Pack") {
-          packageInfo = ' best overall value package, the Commercial Xtra Pack, It offers over 185 channels, including ESPN and Regional Sports Network. On top of this you also recieve Music Choice Premium for free which includes ad-free listening to over 80 channels, and all of this is included for just $114.99 per month. '
+          packageInfo = ' best overall value package, the Commercial Xtra Pack, It offers over 185 channels, including ESPN and Regional Sports Network. On top of this you also recieve Music Choice Premium for free which includes ad-free listening to over 80 channels, and all of this is included '
         }
         else if (selectedPackage === "Business Select Pack") {
 
-          packageInfo = 'Business Select Pack. It offers over 95 channels, for just $59.99 per month.'
+          packageInfo = 'Business Select Pack. It offers over 95 channels,'
         }
 
         else if (selectedPackage === "Commercial Basic Plus") {
-          packageInfo = 'Commercial Basic Plus. It offers over 45 channels, for just $29.99 per month.'
+          packageInfo = 'Commercial Basic Plus. It offers over 45 channels,'
         }
 
         else if (selectedPackage === "Commercial Basic Plus + DirecTV Deportes") {
-          packageInfo = 'Commercial Basic Plus direcTV Deportes. It offers over 45 channels in English + ESPN Deportes, TUDN, TyC Sports, GOLTV in Spanish for just $39.98 per month'
+          packageInfo = 'Commercial Basic Plus direcTV Deportes. It offers over 45 channels in English + ESPN Deportes, TUDN, TyC Sports, GOLTV in Spanish for'
+          plus = 'more ';
         }
 
         if (selectedPackage === "COMERCIAL ÓPTIMO MÁS PACK") {
           packageInfo = ' COMERCIAL ÓPTIMO MÁS PACK gives you access to Over 125 Channels for  $99.99 per month. '
         } else if (selectedPackage === "COMERCIAL MÁS ULTRATM PACK") {
-          packageInfo = ' best overall value package, the COMERCIAL MÁS ULTRATM PACK, It offers over 150 channels for $124.99';
+          packageInfo = ' best overall value package, the COMERCIAL MÁS ULTRATM PACK, It offers over 150 channels';
+        }
+
+        if (selectedInternational[0].includes('DirecTV Deportes')) {
+          addOnPackageInfo += 'ESPN Deportes, TUDN, TyC Sports'
+        addOnPrice += 9.99;
+        }
+
+        if (selectedInternational[0].includes('Americas Plus')) {
+          addOnPackageInfo += 'PERU Magico, Discovery en Espanol, Telemundo, UMas, Hola TV'
+        addOnPrice += 9.99;
+        }
+
+        if (selectedInternational[0].includes('Mexico Plus')) {
+          addOnPackageInfo += 'MN, Universo, A3S, Telemundo, UMas'
+          addOnPrice += 9.99;
+        }
+
+        if (selectedInternational[0].includes('Mexico Plus') || selectedInternational[0].includes('Americas Plus')) {
+          andMore = ' and more'
         }
 
         if (selectedInternational[0].length >= 1) {
-          addOnInfo = `. To further enhance your viewing experience, I also recommend adding the international ${addOns} of  ${ selectedInternational.join(", ")} international package, which includes ESPN Deportes, TUDN, TyC Sports, and GOLTV for just $9.99 per month.  
+          addOnInfo = `To add ${plus}spanish channels, I also recommend adding the international ${addOns} of  ${ selectedInternational.join(", ")} international package, which includes ${addOnPackageInfo} ${andMore} for just $${addOnPrice} per month.  
           \n By combining the ${selectedPackage} with the ${ selectedInternational.join(", ")} ${addOns}, you'll receive an extensive selection of channels tailored to your business needs for just $${totalPrice.toFixed(2)} per month.`;
 
         } else {
-          addOnInfo = ``;
+          addOnInfo = `for just $${totalPrice.toFixed(2)} per month with ${numTvs} ${TVs}`;
         }
 
 
@@ -905,10 +1002,49 @@ document.getElementById("recommended-script").appendChild(copyButton);
         }
         updateTotalPrice();
        
+     
+
       }
 
         // Call the updateTotalPrice function initially to set the recommended script text
-   
+      // $(document).ready(function() {
+  // Add click event listener to the submit button
+  $("#not-available-submit-btn").click(function() {
+    // Collect the form data and concatenate it into one string
+    var email = $("#email-input").val();
+    var name = $("#name-input").val();
+    var tv = $("input[name='tv-radio']:checked").val();
+    var cable = $("#cable-input").val();
+    var time = $("#time-input").val();
+    //<input type="time" class="form-control" id="time-input">
+    var infoString = "1. Time to reach owner: " + time + "\n\n" +
+                     "2. Owner Email: " + email + "\n\n" +
+                     "3. Name: " + name + "\n\n" +
+                     "4. Use TVs: " + tv + "\n\n" +
+                     "5. Current Cable Company: " + cable;
+    
+    // Copy the information to the clipboard
+    navigator.clipboard.writeText(infoString);
+    
+    // Reset the form and hide it
+    $('#notAvailableModal').modal('hide');
+    
+    // Show a success message after a delay of 500 milliseconds
+    setTimeout(function() {
+      alert("Text Copied");
+    }, 500);
+  });
+
+  $(document).ready(function() {
+  // Add click event listener to the "If Customer is available" button
+  $("#customer-available-btn").click(function() {
+    // Show the div when the button is clicked
+    $("#customer-available-div").show();
+  });
+});
+
+
+
     </script>
     <style>
       body {
@@ -919,6 +1055,17 @@ document.getElementById("recommended-script").appendChild(copyButton);
   font-weight: bold;
   color: #007bff;
   text-align: center;
+}
+.container {
+  margin-top: 50px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-check-label {
+  margin-right: 25px;
 }
     </style>
   </body>
